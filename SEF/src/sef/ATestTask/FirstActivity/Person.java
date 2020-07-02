@@ -1,9 +1,14 @@
 package sef.ATestTask.FirstActivity;
 
+import java.util.regex.Pattern;
 
 public class Person {
 
 //TODO 1 Implement Person Attributes
+
+	private String firstName;
+	private String secondName;
+	private int age;
 
 	//Behavior - default constructor
 	public Person(){
@@ -14,9 +19,9 @@ public class Person {
 
 	//Behavior - parameterized constructor
 	public Person(String firstName, String secondName, int age){
-		this.firstName = firstName;
-		this.secondName = secondName;
-		this.age = age;
+		setFirstName(firstName);
+		setSecondName(secondName);
+		setAge(age);
 	}
 
 	// getter for String firstName
@@ -25,7 +30,11 @@ public class Person {
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		if (Pattern.matches("[a-zA-Z]+", firstName)) {
+			this.firstName = firstName;
+		} else {
+			throw new CustomExceptionActivity();
+		}
 	}
 
 	// getter for int age
@@ -43,12 +52,16 @@ public class Person {
 	}
 
 	public void setSecondName(String secondName) {
-		this.secondName = secondName;
+		if (secondName.contains("[a-zA-Z]") == false) {
+			this.secondName = secondName;
+		} else {
+			throw new CustomExceptionActivity();
+		}
 	}
 
 	//TODO 2 add all person info into announce() method
 	public String announce() {
-		return "I am " + getFirstName() + " " + getSecondName();
+		return "My name is " + getFirstName() + " " + getSecondName() + " and i am " + getAge() + " years old";
 	}
 }
 
